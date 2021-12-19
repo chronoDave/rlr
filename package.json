@@ -32,7 +32,8 @@
   "scripts": {
     "lint": "eslint src/index.ts",
     "test": "rollup -c --noEmit && tape test/index.spec.js",
-    "build": "rollup -c"
+    "build": "rollup -c",
+    "prepublishOnly": "npm run build"
   },
   "devDependencies": {
     "@types/node": "^16.11.6",

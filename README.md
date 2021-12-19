@@ -1,6 +1,4 @@
 <div align="center">
-  <img src="/assets/icon.svg" width="128" alt="leaf-db">
-
   <h1>rlr</h1>
   <p><b>rlr</b> (<b>R</b>ead<b>L</b>ine<b>R</b>everse) is an event-driven utility module for reading files in reverse, one line at a time.</p>
 </div>

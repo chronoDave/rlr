@@ -19,7 +19,7 @@ export type ReadlineReverseEmitter<T> = {
   on: <K extends keyof T>(
     event: K,
     listener: (value: T[K]) => void
-  ) => ReadlineReverse['_emitter']
+  ) => ReadlineReverseEmitter<ReadlineReverseEvents>
   emit: <K extends keyof T>(event: K, value?: T[K]) => void
 };
 

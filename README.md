@@ -48,6 +48,18 @@ stream
   .on('line', line => console.log(line))
   .on('close', () => console.log('end'))
   .on('error', err => console.error(err))
+  
+// Promise wrapper
+const readFileReverse(
+  file: PathLike,
+  cb: ((line: string) => void)
+) => new Promise<void>((resolve, reject) => new Rlr()
+  .createInterface(file)
+  .on('line', cb)
+  .on('close', resolve)
+  .on('error', reject));
+  
+readFileReverse('./large-file.txt', console.log);
 ```
 
 ## Options

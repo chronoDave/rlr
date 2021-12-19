@@ -31,7 +31,7 @@
 $ npm i rlr
 ```
 
-<i>Note: This package requires Node >= 14.14.0<i>
+<i>Note: This package requires Node >= 14.14.0</i>
 
 ## Getting Started
 

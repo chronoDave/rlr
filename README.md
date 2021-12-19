@@ -10,14 +10,11 @@
   <a href="https://www.npmjs.com/package/rlr">
     <img alt="NPM" src="https://img.shields.io/npm/v/rlr?label=npm">
   </a>
-  <a href="https://bundlephobia.com/result?p=rlr@latest">
-    <img alt="Bundle size" src="https://img.shields.io/bundlephobia/minzip/rlr@latest.svg">
-  </a>
   <a href="https://github.com/chronoDave/rlr/actions/workflows/ci.yml">
-    <img alt="CI" src="https://github.com/chronoDave/rlr/workflows/ci/badge.svg?branch=master">
+    <img alt="CI" src="https://github.com/chronoDave/rlr/actions/workflows/ci.yml/badge.svg">
   </a>
   <a href="https://github.com/chronoDave/rlr/actions/workflows/codeql.yml">
-     <img alt="CodeQL" src="https://github.com/chronoDave/rlr/actions/workflows/codeql.yml/badge.svg?branch=master">
+    <img alt="CodeQL" src="https://github.com/chronoDave/rlr/actions/workflows/codeql.yml/badge.svg">
   </a>
 </div>
 

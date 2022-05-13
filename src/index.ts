@@ -4,9 +4,10 @@ import { EventEmitter } from 'stream';
 import os from 'os';
 
 export type ReadlineReverseOptions = {
-  size?: ReadlineReverse['_size']
-  encoding?: ReadlineReverse['_encoding']
-  newline?: ReadlineReverse['_newline']
+  size?: number
+  encoding?: BufferEncoding
+  newline?: string
+  ignoreEmpty?: boolean
 };
 
 export type ReadlineReverseEvents = {
@@ -28,6 +29,7 @@ export default class ReadlineReverse {
   private _encoding: BufferEncoding;
   private _emitter: ReadlineReverseEmitter<ReadlineReverseEvents>;
   private _newline: string;
+  private _ignoreEmpty: boolean;
 
   private _stat = promisify(fs.stat);
   private _open = promisify(fs.open);
@@ -50,7 +52,12 @@ export default class ReadlineReverse {
           0;
 
         for (let i = lines.length - 1; i >= 0; i -= 1) {
-          this._emitter.emit('line', lines[i].trim());
+          const line = lines[i].trim();
+
+          if (
+            !this._ignoreEmpty ||
+            (this._ignoreEmpty && line.length > 0)
+          ) this._emitter.emit('line', line);
         }
 
         return remainder;
@@ -61,6 +68,7 @@ export default class ReadlineReverse {
     this._size = options?.size ?? 1024 * 64; // 64kb
     this._encoding = options?.encoding ?? 'utf-8';
     this._newline = options?.newline ?? os.EOL;
+    this._ignoreEmpty = options?.ignoreEmpty ?? true;
 
     this._emitter = new EventEmitter();
   }

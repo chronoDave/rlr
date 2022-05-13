@@ -128,3 +128,39 @@ test('[createInterface] throws error if buffer is too small', t => {
       t.end();
     });
 });
+
+test('[createInterface] ignores empty lines', t => {
+  const n = 16;
+  const rlr = new Rlr();
+  const stream = rlr.createInterface(path.resolve(__dirname, `./data/${n}-gap.txt`));
+  const lines = [];
+
+  stream
+    .on('line', line => lines.push(line))
+    .on('error', err => {
+      t.fail(err);
+      t.end();
+    })
+    .on('close', () => {
+      t.equal(lines.length, n / 2, 'does not skip');
+      t.end();
+    });
+});
+
+test('[createInterface] does not ignore empty lines if `ignoreEmpty` is false', t => {
+  const n = 16;
+  const rlr = new Rlr({ ignoreEmpty: false });
+  const stream = rlr.createInterface(path.resolve(__dirname, `./data/${n}-gap.txt`));
+  const lines = [];
+
+  stream
+    .on('line', line => lines.push(line))
+    .on('error', err => {
+      t.fail(err);
+      t.end();
+    })
+    .on('close', () => {
+      t.equal(lines.length, n, 'does not skip');
+      t.end();
+    });
+});

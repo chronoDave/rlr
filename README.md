@@ -67,6 +67,7 @@ readFileReverse('./large-file.txt', console.log);
 - `size (default: 65536 (64kb))` Max buffer size in bytes
 - `encoding (default: 'utf-8')` File encoding
 - `newline (default: 'os.EOL')` Newline character
+- `ignoreEmpty (default: 'true')` Should empty lines be ignored
 
 ## Donating
 

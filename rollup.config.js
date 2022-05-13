@@ -7,7 +7,7 @@ const output = type => `dist/rlr.${type}`;
 
 const transpile = {
   input,
-  external: ['fs', 'util', 'stream'],
+  external: ['fs', 'util', 'stream', 'os'],
   plugins: [
     esbuild({
       target: 'esnext'

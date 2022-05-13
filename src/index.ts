@@ -1,6 +1,7 @@
 import fs from 'fs';
 import { promisify } from 'util';
 import { EventEmitter } from 'stream';
+import os from 'os';
 
 export type ReadlineReverseOptions = {
   size?: ReadlineReverse['_size']
@@ -59,7 +60,7 @@ export default class ReadlineReverse {
   constructor(options?: ReadlineReverseOptions) {
     this._size = options?.size ?? 1024 * 64; // 64kb
     this._encoding = options?.encoding ?? 'utf-8';
-    this._newline = options?.newline ?? '\n';
+    this._newline = options?.newline ?? os.EOL;
 
     this._emitter = new EventEmitter();
   }
@@ -75,6 +76,11 @@ export default class ReadlineReverse {
         while (stack > 0) {
           const size = Math.min(stack, this._size);
           const remainder = await this._readLine(fd, size, stack - size);
+
+          if (size === remainder) {
+            await this._close(fd);
+            throw new Error('Line length bigger than buffer size. Make sure the newline character is valid or try increasing the buffer size.');
+          }
 
           stack -= (size - remainder);
         }

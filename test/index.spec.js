@@ -1,4 +1,5 @@
 const path = require('path');
+const os = require('os');
 
 const test = require('tape');
 
@@ -70,7 +71,7 @@ test('[createInterface] should accept encoding option', t => {
 
 test('[createInterface] should accept newline option', t => {
   const n = 16;
-  const rlr = new Rlr({ newline: '\r\n', normalize: /\n/g });
+  const rlr = new Rlr({ newline: os.EOL });
   const stream = rlr.createInterface(path.resolve(__dirname, './data/16.txt'));
   const lines = [];
 

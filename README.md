@@ -67,8 +67,6 @@ readFileReverse('./large-file.txt', console.log);
 - `size (default: 65536) (64kb)` Max buffer size in bytes
 - `encoding (default: 'utf-8')` File encoding
 - `newline (default: '\n')` Newline character
-- `normalize (default: true)` If true, normalize `\r\n` to `\n`. Accepts RegExp, but does not append `\g` flag by default. Example: `/,/g`
-
 
 ## Donating
 

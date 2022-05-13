@@ -6,7 +6,6 @@ export type ReadlineReverseOptions = {
   size?: ReadlineReverse['_size']
   encoding?: ReadlineReverse['_encoding']
   newline?: ReadlineReverse['_newline']
-  normalize?: ReadlineReverse['_normalize']
 };
 
 export type ReadlineReverseEvents = {
@@ -28,7 +27,6 @@ export default class ReadlineReverse {
   private _encoding: BufferEncoding;
   private _emitter: ReadlineReverseEmitter<ReadlineReverseEvents>;
   private _newline: string;
-  private _normalize: RegExp | false;
 
   private _stat = promisify(fs.stat);
   private _open = promisify(fs.open);
@@ -39,10 +37,7 @@ export default class ReadlineReverse {
     return this._read(fd, Buffer.alloc(size), 0, size, position)
       .then(({ buffer }) => {
         const raw = buffer.toString(this._encoding);
-
-        const lines = this._normalize ?
-          raw.replace(this._normalize, this._newline).split(this._newline) :
-          raw.split(this._newline);
+        const lines = raw.split(this._newline);
 
         /**
          * Always assume the last number is incorrect
@@ -54,7 +49,7 @@ export default class ReadlineReverse {
           0;
 
         for (let i = lines.length - 1; i >= 0; i -= 1) {
-          this._emitter.emit('line', lines[i]);
+          this._emitter.emit('line', lines[i].trim());
         }
 
         return remainder;
@@ -65,7 +60,6 @@ export default class ReadlineReverse {
     this._size = options?.size ?? 1024 * 64; // 64kb
     this._encoding = options?.encoding ?? 'utf-8';
     this._newline = options?.newline ?? '\n';
-    this._normalize = options?.normalize ?? /\r\n/g;
 
     this._emitter = new EventEmitter();
   }

@@ -34,9 +34,9 @@ const types = {
   }
 };
 
-export default cla => {
-  const { noEmit } = cla;
-  delete cla.noEmit;
+export default cli => {
+  const { noEmit } = cli;
+  delete cli.noEmit;
 
   return noEmit ?
     transpile :

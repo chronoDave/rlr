@@ -100,7 +100,7 @@ test('[createInterface] should accept newline option', t => {
 });
 
 test('[createInterface] throws error if invalid newline option is used', t => {
-  const rlr = new Rlr();
+  const rlr = new Rlr({ newline: 'newline' });
   const stream = rlr.createInterface(path.resolve(__dirname, './data/65536.txt'));
 
   stream
@@ -115,7 +115,7 @@ test('[createInterface] throws error if invalid newline option is used', t => {
 });
 
 test('[createInterface] throws error if buffer is too small', t => {
-  const rlr = new Rlr({ size: 4 });
+  const rlr = new Rlr({ size: 1 });
   const stream = rlr.createInterface(path.resolve(__dirname, './data/16.txt'));
 
   stream
